@@ -13,7 +13,6 @@ spring:
     username: lizgarciaMSFT
     password: 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
     default-label: main
-
   datasource:
     url: jdbc:mysql://<your-mysql-server-name>.mysql.database.azure.com:3306/petclinic?useSSL=true
     username: myadmin
