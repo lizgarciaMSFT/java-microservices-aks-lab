@@ -5,5 +5,11 @@
         "kubenet",
         "petclinic",
         "VM's"
+    ],
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\Users\\lizgarcia\\.azurelogicapps\\dependencies\\DotNetSDK;${env:PATH}"
+    },
+    "omnisharp.dotNetCliPaths": [
+        "C:\\Users\\lizgarcia\\.azurelogicapps\\dependencies\\DotNetSDK"
     ]
 }
