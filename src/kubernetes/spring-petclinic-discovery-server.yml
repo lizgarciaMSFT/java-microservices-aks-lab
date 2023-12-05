@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: api-gateway
-  name: api-gateway
+    app: discovery-server
+  name: discovery-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-gateway
+      app: discovery-server
   template:
     metadata:
       labels:
-        app: api-gateway
+        app: discovery-server
     spec:
       containers:
-      - image: your-acr-name.azurecr.io/spring-petclinic-api-gateway:your-version
-        name: api-gateway
+      - image: .azurecr.io/spring-petclinic-discovery-server:
+        name: discovery-server
         env:
         - name: "CONFIG_SERVER_URL"
           valueFrom:
@@ -28,7 +28,7 @@ spec:
           failureThreshold: 3
           httpGet:
             path: /actuator/health
-            port: 8080
+            port: 8761
             scheme: HTTP
           initialDelaySeconds: 180
           successThreshold: 1
@@ -36,12 +36,12 @@ spec:
           failureThreshold: 3
           httpGet:
             path: /actuator/health
-            port: 8080
+            port: 8761
             scheme: HTTP
           initialDelaySeconds: 10
           successThreshold: 1
         ports:
-        - containerPort: 8080
+        - containerPort: 8761
           name: http
           protocol: TCP
         - containerPort: 9779
@@ -59,13 +59,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: api-gateway
-  name: api-gateway
+    app: discovery-server
+  name: discovery-server
 spec:
   ports:
-  - port: 8080
+  - port: 8761
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8761
   selector:
-    app: api-gateway
-  type: LoadBalancer
+    app: discovery-server
+  type: ClusterIP
